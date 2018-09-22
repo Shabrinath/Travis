@@ -35,11 +35,11 @@ script:
 # Create Deployment, Service and Ingress
 - git clone https://github.com/shabari12345/helm-meetup.git
 - pwd
+- ls -al
 - cd kubectl1
 - kubectl create -f deployment.yaml
 - kubetcl get deployments 
 
 # Deploy Helm Charts.
-- pwd
-- helm install . --name my-first-helm-chart # Use your Helmcharts
+- helm create testCharts
 - helm list
