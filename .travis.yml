@@ -36,7 +36,7 @@ script:
 - git clone https://github.com/shabari12345/helm-meetup.git
 - pwd
 - ls -al
-- cd kubectl1
+- cd helm-meetup/kubectl1
 - kubectl create -f deployment.yaml
 - kubetcl get deployments 
 
