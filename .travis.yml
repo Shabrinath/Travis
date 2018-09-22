@@ -32,13 +32,18 @@ script:
 - sleep 20
 - kubectl get pods --namespace kube-system
 
-# Create Deployment, Service and Ingress
+# Create-Deployment, Service and Ingress
 - git clone https://github.com/shabari12345/helm-meetup.git
-- pwd
-- ls -al
 - cd helm-meetup/kubectl1
 - kubectl create -f deployment.yaml
-- kubetcl get deployments 
+- kubectl create -f service.yaml
+- kubectl create -f ingress.yaml
+
+# Verify-Deployment, Service and Ingress
+- kubectl get deployments
+- kubectl get services
+- kubectl get ingress
+- kubectl get pods
 
 # Deploy Helm Charts.
 - helm create testCharts
