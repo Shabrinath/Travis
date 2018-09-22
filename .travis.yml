@@ -27,9 +27,9 @@ script:
 - sudo mv linux-amd64/helm /usr/local/bin/helm
 - helm init
 - kubectl delete deployment tiller-deploy --namespace=kube-system ; kubectl delete service tiller-deploy --namespace=kube-system
+- kubectl create -f helmServiceAccount.yaml
 - helm init --service-account helm
 - sleep 20
-- kubectl create -f helmServiceAccount.yaml
 - kubectl get pods --namespace kube-system
 
 # Create Deployment, Service and Ingress
