@@ -15,19 +15,31 @@ script:
 - JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}'; until kubectl get nodes -o jsonpath="$JSONPATH" 2>&1 | grep -q "Ready=True"; do sleep 1; done
 - kubectl cluster-info
 - JSONPATH='{range .items[*]}{@.metadata.name}:{range @.status.conditions[*]}{@.type}={@.status};{end}{end}'; until kubectl -n kube-system get pods -lk8s-app=kube-dns -o jsonpath="$JSONPATH" 2>&1 | grep -q "Ready=True"; do sleep 1;echo "waiting for kube-dns to be available"; kubectl get pods --all-namespaces; done
-- kubectl get nodes
 - sudo apt-get install -y --upgrade util-linux socat
+
+# Verify your Kubernetes deployment
+- kubectl get nodes
+- kubectl get pods --all-namespaces
+
 # Install Helm:
 - wget https://storage.googleapis.com/kubernetes-helm/helm-v2.10.0-linux-amd64.tar.gz 
 - tar -xvzf helm-v2.10.0-linux-amd64.tar.gz
 - sudo mv linux-amd64/helm /usr/local/bin/helm
 - helm init
-- kubectl delete deployment tiller-deploy --namespace=kube-system ; kubectl delete service tiller-deploy --namespace=kube-system ; rm -rf ~/.helm/
-- kubectl create -f helm.yaml
+- kubectl delete deployment tiller-deploy --namespace=kube-system ; kubectl delete service tiller-deploy --namespace=kube-system
 - helm init --service-account helm
 - sleep 20
-- kubectl get po --namespace kube-system
+- kubectl create -f helmServiceAccount.yaml
+- kubectl get pods --namespace kube-system
+
+# Create Deployment, Service and Ingress
+- git clone https://github.com/shabari12345/helm-meetup.git
+- pwd
+- cd kubectl1
+- kubectl create -f deployment.yaml
+- kubetcl get deployments 
+
 # Deploy Helm Charts.
-- cd helm-travis
+- pwd
 - helm install . --name my-first-helm-chart # Use your Helmcharts
 - helm list
