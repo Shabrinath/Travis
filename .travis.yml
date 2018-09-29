@@ -45,6 +45,4 @@ script:
 - kubectl get ingress
 - kubectl get pods
 
-# Deploy Helm Charts.
-- helm create testCharts
-- helm list
+
