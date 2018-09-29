@@ -44,5 +44,6 @@ script:
 - kubectl get services
 - kubectl get ingress
 - kubectl get pods
+- kubectl get pods
 
 
